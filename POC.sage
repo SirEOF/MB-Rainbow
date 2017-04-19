@@ -1,4 +1,3 @@
-def Gen_UOV(v,o,N):#-------------Generate a UOV layer 
     vp=v
     op=o
     n=v+o
@@ -36,8 +35,6 @@ def Gen_MB(v,d,op,N):#-------------------------Generate a MB UOV layer.
     B0=[0 for i in range(o)]
     B=[[] for i in range(o)]
     A=[0 for i in range(o)]
-    D=[0 for i in range(o)]
-    D[0]=random_matrix(K,v,v)
     Ar=[0 for i in range(op)]
     for r in range(op):
         A01[r]=[]
@@ -66,9 +63,12 @@ def Gen_MB(v,d,op,N):#-------------------------Generate a MB UOV layer.
         A01[i]=A01[i%op]*rotate_matrix^(i//op)
 
     for i in range(o):
-        A00[i]=D[i]
+        A00[i]=random_matrix(K,v,v)
     for i in range(o):
         A[i]=matrix.block([[A00[i],A01[i]],[matrix(K,o,v),matrix(K,o,o)]])
+
+    #---------------omit linear and constant parts for simplicity
+
     F=[0 for i in range(o)]
     for i in range(o):
         F[i]=A[i]#-------------------central quadratic matrix
